@@ -1,15 +1,15 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import {
+    useCreateUserWithEmailAndPassword,
+    useUpdateProfile
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  useCreateUserWithEmailAndPassword,
-  useUpdateProfile,
-} from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
 import { toast } from "react-toastify";
+import auth from "../firebase.init";
 import Loading from "../Pages/Shared/Loading/Loading";
-import axios from "axios";
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -69,7 +69,7 @@ const Register = () => {
       img: "https://i.ibb.co/7SPmy5y/image.png",
     };
     await axios
-      .get("https://tranquil-plains-69980.herokuapp.com/users")
+      .get("https://connectzone.herokuapp.com/users")
       .then((res) => {
         res.data.forEach((user) => {
           if (user.email === data.email) {
@@ -81,7 +81,7 @@ const Register = () => {
       await createUserWithEmailAndPassword(data.email, data.password);
       await updateProfile({ displayName });
       await axios
-        .post("https://tranquil-plains-69980.herokuapp.com/user", user)
+        .post("https://connectzone.herokuapp.com/user", user)
         .then((res) => {
           if (res.status === 200) {
             window.location.reload();

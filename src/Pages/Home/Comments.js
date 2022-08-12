@@ -5,7 +5,7 @@ const Comments = ({ isCommented, _id }) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://tranquil-plains-69980.herokuapp.com/comments/${_id}`)
+      .get(`https://connectzone.herokuapp.com/comments/${_id}`)
       .then((res) => setComments(res.data));
   }, [isCommented, _id]);
   return (

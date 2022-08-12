@@ -13,7 +13,7 @@ const LeftSide = () => {
     if (user) {
       setUserDataLoading(true);
       axios
-        .get(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
         .then((res) => {
           setUserData(res.data);
           setUserDataLoading(false);

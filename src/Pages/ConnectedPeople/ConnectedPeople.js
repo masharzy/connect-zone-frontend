@@ -14,7 +14,7 @@ const ConnectedPeople = () => {
     setCLoading(true);
     axios
       .get(
-        `https://tranquil-plains-69980.herokuapp.com/user/${user.email}/friends`
+        `https://connectzone.herokuapp.com/user/${user.email}/friends`
       )
       .then((res) => {
         setFriends(res.data);

@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
-  FaFacebookMessenger,
-  FaHome,
-  FaRegBell,
-  FaStore,
-  FaUsers,
+    FaFacebookMessenger,
+    FaHome,
+    FaRegBell,
+    FaStore,
+    FaUsers
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import auth from "../../../firebase.init";
@@ -20,7 +20,7 @@ const Navbar = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
         .then((res) => {
           setUserData(res.data);
         });

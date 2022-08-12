@@ -11,7 +11,7 @@ const GroupAbout = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://tranquil-plains-69980.herokuapp.com/groupBySlug/${groupSlug}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/groupBySlug/${groupSlug}`).then((res) => {
       setGroupInfo(res.data);
       setLoading(false);
     });

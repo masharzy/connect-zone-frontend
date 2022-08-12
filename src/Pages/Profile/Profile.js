@@ -15,7 +15,7 @@ const Profile = () => {
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`https://tranquil-plains-69980.herokuapp.com/user/${email}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/user/${email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -38,7 +38,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="posts mt-5">
-          <Posts url={`https://tranquil-plains-69980.herokuapp.com/posts/${email}`} />
+          <Posts url={`https://connectzone.herokuapp.com/posts/${email}`} />
         </div>
       </div>
     </div>

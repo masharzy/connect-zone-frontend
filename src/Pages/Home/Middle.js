@@ -41,7 +41,7 @@ const Middle = () => {
   const onSubmit = async (data, e) => {
     setPosting(true);
     await axios
-      .post("https://tranquil-plains-69980.herokuapp.com/post", {
+      .post("https://connectzone.herokuapp.com/post", {
         userName: user.displayName,
         userImage: userData.img,
         userEmail: user.email,
@@ -67,7 +67,7 @@ const Middle = () => {
     if (user) {
       setUserDataLoading(true);
       axios
-        .get(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
         .then((res) => {
           setUserData(res.data);
           setUserDataLoading(false);
@@ -220,7 +220,7 @@ const Middle = () => {
       {/* <Posts/> */}
       <Posts
         isPosted={isPosted}
-        url={`https://tranquil-plains-69980.herokuapp.com/postsByFriends/${[
+        url={`https://connectzone.herokuapp.com/postsByFriends/${[
           userData?.friends,
         ]}`}
       />

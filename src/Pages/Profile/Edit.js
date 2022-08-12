@@ -37,7 +37,7 @@ const Edit = () => {
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/user/${user.email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -72,14 +72,14 @@ const Edit = () => {
               const photoUrl = res.data.data.url;
               await updateProfile({ photoURL: photoUrl });
               await axios
-                .put(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`, {
+                .put(`https://connectzone.herokuapp.com/user/${user.email}`, {
                   img: photoUrl,
                 })
                 .then((res) => {
                   if (res.status === 200) {
                     toast.success("Photo updated successfully");
                     setProfileUpdated(true);
-                    axios.post("https://tranquil-plains-69980.herokuapp.com/post", {
+                    axios.post("https://connectzone.herokuapp.com/post", {
                       userName: user.displayName,
                       userImage: photoUrl,
                       userEmail: user.email,
@@ -98,7 +98,7 @@ const Edit = () => {
                       time: todayDate,
                     });
                     axios.put(
-                      `https://tranquil-plains-69980.herokuapp.com/updatePostUserImage/${user.email}`,
+                      `https://connectzone.herokuapp.com/updatePostUserImage/${user.email}`,
                       {
                         userImage: photoUrl,
                       }
@@ -119,14 +119,14 @@ const Edit = () => {
     const name = e.target.name.value;
     await updateProfile({ displayName: name });
     await axios
-      .put(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`, {
+      .put(`https://connectzone.herokuapp.com/user/${user.email}`, {
         displayName: name,
       })
       .then((res) => {
         if (res.status === 200) {
           toast.success("Profile updated successfully");
           setProfileUpdated(true);
-          axios.put(`https://tranquil-plains-69980.herokuapp.com/updatePostUserName/${user.email}`, {
+          axios.put(`https://connectzone.herokuapp.com/updatePostUserName/${user.email}`, {
             userName: name,
           });
         }

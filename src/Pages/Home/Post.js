@@ -32,7 +32,7 @@ const Post = ({ post }) => {
   useEffect(() => {
     axios
       .get(
-        `https://tranquil-plains-69980.herokuapp.com/user/${
+        `https://connectzone.herokuapp.com/user/${
           user ? user.email : email
         }`
       )
@@ -41,13 +41,13 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/post/${_id}`)
+      .get(`https://connectzone.herokuapp.com/post/${_id}`)
       .then((res) => setPostData(res.data));
   }, [_id, likeActive]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/like/${_id}/${user.email}`)
+      .get(`https://connectzone.herokuapp.com/like/${_id}/${user.email}`)
       .then((res) => {
         if (res.data === true) {
           setAlreadyLiked(true);
@@ -75,7 +75,7 @@ const Post = ({ post }) => {
     };
     setCommenting(true);
     await axios
-      .post(`https://tranquil-plains-69980.herokuapp.com/comment`, comment)
+      .post(`https://connectzone.herokuapp.com/comment`, comment)
       .then((res) => {
         if (res.status === 200) {
           e.target.reset();
@@ -88,7 +88,7 @@ const Post = ({ post }) => {
   const updateLike = async (id) => {
     if (alreadyLiked) {
       await axios
-        .delete(`http://localhost:5000/like/${id}/${user.email}`)
+        .delete(`https://connectzone.herokuapp.com/like/${id}/${user.email}`)
         .then((res) => {
           if (res.status === 200) {
             setAlreadyLiked(false);
@@ -98,7 +98,7 @@ const Post = ({ post }) => {
     } else {
       setLiking(true);
       await axios
-        .put(`http://localhost:5000/like/${id}`, {
+        .put(`https://connectzone.herokuapp.com/like/${id}`, {
           userName,
           userImage,
           userEmail,

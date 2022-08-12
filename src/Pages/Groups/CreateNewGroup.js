@@ -35,7 +35,7 @@ const CreateNewGroup = () => {
       groupCreatorEmail: user.email,
     };
     await axios
-      .post("https://tranquil-plains-69980.herokuapp.com/group", group)
+      .post("https://connectzone.herokuapp.com/group", group)
       .then((res) => {
         if (res.status === 200) {
           toast.success("Group created successfully");

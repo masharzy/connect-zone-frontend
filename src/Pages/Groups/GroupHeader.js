@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaCheckCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import auth from "../../firebase.init";
 import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const GroupHeader = ({ groupSlug }) => {
   const [groupInfo, setGroupInfo] = useState({});
@@ -18,7 +18,7 @@ const GroupHeader = ({ groupSlug }) => {
     setLoading(true);
     axios
       .get(
-        `https://tranquil-plains-69980.herokuapp.com/groupBySlug/${groupSlug}`
+        `https://connectzone.herokuapp.com/groupBySlug/${groupSlug}`
       )
       .then((res) => {
         setGroupInfo(res.data);
@@ -93,7 +93,7 @@ const GroupHeader = ({ groupSlug }) => {
             const updatePhotoUrl = async () => {
               const photoUrl = res.data.data.url;
               await axios
-                .put(`http://localhost:5000/group/${groupSlug}/coverPhoto`, {
+                .put(`https://connectzone.herokuapp.com/group/${groupSlug}/coverPhoto`, {
                   groupCoverPhoto: photoUrl,
                 })
                 .then((res) => {
@@ -155,7 +155,7 @@ const GroupHeader = ({ groupSlug }) => {
                       if (user) {
                         axios
                           .put(
-                            `http://localhost:5000/group/${groupSlug}/pushMember`,
+                            `https://connectzone.herokuapp.com/group/${groupSlug}/pushMember`,
                             {
                               email: user.email,
                             }

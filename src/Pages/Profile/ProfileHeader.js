@@ -17,7 +17,7 @@ const ProfileHeader = () => {
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`https://tranquil-plains-69980.herokuapp.com/user/${email}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/user/${email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -36,11 +36,11 @@ const ProfileHeader = () => {
   const sendFriendRequest = async () => {
     if (user) {
       await axios
-        .get(`https://tranquil-plains-69980.herokuapp.com/user/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
         .then((res) => {
           if (res.status === 200) {
             axios
-              .post(`https://tranquil-plains-69980.herokuapp.com/friendRequest`, {
+              .post(`https://connectzone.herokuapp.com/friendRequest`, {
                 senderName: user.displayName,
                 senderImage: res.data.img,
                 senderEmail: user.email,
@@ -61,7 +61,7 @@ const ProfileHeader = () => {
 
   if (user) {
     axios
-      .get(`https://tranquil-plains-69980.herokuapp.com/friendRequest/${user.email}/${email}`)
+      .get(`https://connectzone.herokuapp.com/friendRequest/${user.email}/${email}`)
       .then((res) => {
         if (res.status === 200) {
           if (res.data.confirmed === false) {
