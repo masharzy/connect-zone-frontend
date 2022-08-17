@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { FaCommentAlt, FaThumbsUp } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import auth from "../../firebase.init";
-import Comments from "./Comments";
+import Comments from "../Home/Comments";
+// import Comments from "./Comments";
 
-const Post = ({ post }) => {
+const GroupPost = ({ post }) => {
   const {
     _id,
     userName,
@@ -16,8 +17,9 @@ const Post = ({ post }) => {
     time,
     postCaption,
     postImages,
-    reason,
+    reason
   } = post;
+  const { groupSlug } = useParams();
   const [user] = useAuthState(auth);
   const [userData, setUserData] = useState({});
   const [isCommented, setIsCommented] = useState(false);
@@ -41,13 +43,13 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/post/${_id}`)
+      .get(`http://localhost:5000/group/${groupSlug}/post/${_id}`)
       .then((res) => setPostData(res.data));
-  }, [_id, likeActive]);
+  }, [_id, groupSlug, likeActive]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/like/${_id}/${user.email}`)
+      .get(`http://localhost:5000/group/${groupSlug}/post/${_id}/checkLike/${user?.email}`)
       .then((res) => {
         if (res.data === true) {
           setAlreadyLiked(true);
@@ -55,7 +57,7 @@ const Post = ({ post }) => {
           setAlreadyLiked(false);
         }
       });
-  }, [_id, user]);
+  }, [_id, groupSlug, user]);
 
   const { postLikes: likes } = postData;
   const { img } = userData;
@@ -65,6 +67,7 @@ const Post = ({ post }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = async (data, e) => {
     const comment = {
       postId: _id,
@@ -89,7 +92,7 @@ const Post = ({ post }) => {
     if (alreadyLiked) {
       setLiking(true);
       await axios
-        .delete(`http://localhost:5000/like/${id}/${user.email}`)
+        .delete(`http://localhost:5000/group/${groupSlug}/post/${_id}/deleteLike`)
         .then((res) => {
           if (res.status === 200) {
             setLiking(false);
@@ -100,14 +103,14 @@ const Post = ({ post }) => {
     } else {
       setLiking(true);
       await axios
-        .put(`http://localhost:5000/like/${id}`, {
+        .put(`http://localhost:5000/group/${groupSlug}/post/${_id}`, {
           userName,
           userImage,
           userEmail,
           postCaption,
           postImages,
           postLikes: [...likes, user.email],
-          time
+          time,
         })
         .then((res) => {
           if (res.status === 200) {
@@ -228,4 +231,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+export default GroupPost;

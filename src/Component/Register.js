@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
-    useCreateUserWithEmailAndPassword,
-    useUpdateProfile
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { FaArrowLeft } from "react-icons/fa";
@@ -69,7 +69,7 @@ const Register = () => {
       img: "https://i.ibb.co/7SPmy5y/image.png",
     };
     await axios
-      .get("https://connectzone.herokuapp.com/users")
+      .get("http://localhost:5000/users")
       .then((res) => {
         res.data.forEach((user) => {
           if (user.email === data.email) {
@@ -81,15 +81,12 @@ const Register = () => {
       await createUserWithEmailAndPassword(data.email, data.password);
       await updateProfile({ displayName });
       await axios
-        .post("https://connectzone.herokuapp.com/user", user)
+        .post("http://localhost:5000/user", user)
         .then((res) => {
           if (res.status === 200) {
             window.location.reload();
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
     } else {
       toast.error("User already existed");
     }

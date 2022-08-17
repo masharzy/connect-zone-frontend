@@ -37,7 +37,7 @@ const Edit = () => {
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`https://connectzone.herokuapp.com/user/${user.email}`).then((res) => {
+    axios.get(`http://localhost:5000/user/${user.email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -72,21 +72,21 @@ const Edit = () => {
               const photoUrl = res.data.data.url;
               await updateProfile({ photoURL: photoUrl });
               await axios
-                .put(`https://connectzone.herokuapp.com/user/${user.email}`, {
+                .put(`http://localhost:5000/user/${user.email}`, {
                   img: photoUrl,
                 })
                 .then((res) => {
                   if (res.status === 200) {
                     toast.success("Photo updated successfully");
                     setProfileUpdated(true);
-                    axios.post("https://connectzone.herokuapp.com/post", {
+                    axios.post("http://localhost:5000/post", {
                       userName: user.displayName,
                       userImage: photoUrl,
                       userEmail: user.email,
                       postCaption: `${user.displayName} updated his profile picture`,
                       postImages: [photoUrl],
                       reason: "profilePicture",
-                      postLikes: 0,
+                      postLikes: [],
                       postComments: [
                         {
                           commentUserName: "",
@@ -98,7 +98,7 @@ const Edit = () => {
                       time: todayDate,
                     });
                     axios.put(
-                      `https://connectzone.herokuapp.com/updatePostUserImage/${user.email}`,
+                      `http://localhost:5000/updatePostUserImage/${user.email}`,
                       {
                         userImage: photoUrl,
                       }
@@ -119,14 +119,14 @@ const Edit = () => {
     const name = e.target.name.value;
     await updateProfile({ displayName: name });
     await axios
-      .put(`https://connectzone.herokuapp.com/user/${user.email}`, {
+      .put(`http://localhost:5000/user/${user.email}`, {
         displayName: name,
       })
       .then((res) => {
         if (res.status === 200) {
           toast.success("Profile updated successfully");
           setProfileUpdated(true);
-          axios.put(`https://connectzone.herokuapp.com/updatePostUserName/${user.email}`, {
+          axios.put(`http://localhost:5000/updatePostUserName/${user.email}`, {
             userName: name,
           });
         }

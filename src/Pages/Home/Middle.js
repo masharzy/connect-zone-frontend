@@ -41,7 +41,7 @@ const Middle = () => {
   const onSubmit = async (data, e) => {
     setPosting(true);
     await axios
-      .post("https://connectzone.herokuapp.com/post", {
+      .post("http://localhost:5000/post", {
         userName: user.displayName,
         userImage: userData.img,
         userEmail: user.email,
@@ -67,7 +67,7 @@ const Middle = () => {
     if (user) {
       setUserDataLoading(true);
       axios
-        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
+        .get(`http://localhost:5000/user/${user.email}`)
         .then((res) => {
           setUserData(res.data);
           setUserDataLoading(false);
@@ -82,6 +82,7 @@ const Middle = () => {
   const openFileDialog = () => {
     let input = document.createElement("input");
     input.type = "file";
+    input.accept = "image/png";
     input.onchange = (_this) => {
       let files = Array.from(input.files);
       files.forEach((file) => {
@@ -92,7 +93,6 @@ const Middle = () => {
         axios.post(url, formData).then((res) => {
           if (res.data.success) {
             const imageUrl = res.data.data.url;
-            console.log(imageUrl);
             setUploadedImage([...uploadedImage, imageUrl]);
           }
         });
@@ -220,7 +220,7 @@ const Middle = () => {
       {/* <Posts/> */}
       <Posts
         isPosted={isPosted}
-        url={`https://connectzone.herokuapp.com/postsByFriends/${[
+        url={`http://localhost:5000/postsByFriends/${[
           userData?.friends,
         ]}`}
       />

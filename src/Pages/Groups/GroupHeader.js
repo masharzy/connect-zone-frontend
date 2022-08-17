@@ -18,7 +18,7 @@ const GroupHeader = ({ groupSlug }) => {
     setLoading(true);
     axios
       .get(
-        `https://connectzone.herokuapp.com/groupBySlug/${groupSlug}`
+        `http://localhost:5000/groupBySlug/${groupSlug}`
       )
       .then((res) => {
         setGroupInfo(res.data);
@@ -93,11 +93,10 @@ const GroupHeader = ({ groupSlug }) => {
             const updatePhotoUrl = async () => {
               const photoUrl = res.data.data.url;
               await axios
-                .put(`https://connectzone.herokuapp.com/group/${groupSlug}/coverPhoto`, {
+                .put(`http://localhost:5000/group/${groupSlug}/coverPhoto`, {
                   groupCoverPhoto: photoUrl,
                 })
                 .then((res) => {
-                  console.log(res);
                   if (res.status === 200) {
                     setSomethingChanged(!somethingChanged);
                     toast.success("Cover photo updated!");
@@ -155,7 +154,7 @@ const GroupHeader = ({ groupSlug }) => {
                       if (user) {
                         axios
                           .put(
-                            `https://connectzone.herokuapp.com/group/${groupSlug}/pushMember`,
+                            `http://localhost:5000/group/${groupSlug}/pushMember`,
                             {
                               email: user.email,
                             }

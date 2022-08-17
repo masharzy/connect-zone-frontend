@@ -11,7 +11,7 @@ const GroupAbout = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://connectzone.herokuapp.com/groupBySlug/${groupSlug}`).then((res) => {
+    axios.get(`http://localhost:5000/groupBySlug/${groupSlug}`).then((res) => {
       setGroupInfo(res.data);
       setLoading(false);
     });

@@ -13,10 +13,12 @@ const FriendRequests = () => {
   const [userDataLoading, setUserDataLoading] = useState(true);
   const [user, loading] = useAuthState(auth);
   const [friendRequests, setFriendRequests] = useState([]);
+  const [accepted, setAccepted] = useState(false);
+  const [rejected, setRejected] = useState(false);
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`https://connectzone.herokuapp.com/user/${email}`).then((res) => {
+    axios.get(`http://localhost:5000/user/${email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -25,15 +27,14 @@ const FriendRequests = () => {
   useEffect(() => {
     if (user?.email === email) {
       axios
-        .get(`https://connectzone.herokuapp.com/friendRequests/${user?.email}`)
+        .get(`http://localhost:5000/friendRequests/${user?.email}`)
         .then((res) => {
           if (res.status === 200) {
-            console.log(res);
             setFriendRequests(res.data);
           }
         });
     }
-  }, [email, user]);
+  }, [email, user, accepted, rejected]);
 
   if (userDataLoading || loading) {
     return <Loading />;
@@ -60,7 +61,7 @@ const FriendRequests = () => {
                     <div className="flex justify-between">
                       <div className="flex">
                         <img
-                          className="w-10 object-cover"
+                          className="w-12 h-12 object-cover"
                           src={friendRequest.senderImage}
                           alt=""
                         />
@@ -77,7 +78,7 @@ const FriendRequests = () => {
                           onClick={async () => {
                             await axios
                               .put(
-                                `https://connectzone.herokuapp.com/pushFriend/${user?.email}`,
+                                `http://localhost:5000/pushFriend/${user?.email}`,
                                 {
                                   firstName: userData.firstName,
                                   lastName: userData.lastName,
@@ -96,7 +97,7 @@ const FriendRequests = () => {
                                 if (res.status === 200) {
                                   axios
                                     .put(
-                                      `https://connectzone.herokuapp.com/pushFriend/${friendRequest.senderEmail}`,
+                                      `http://localhost:5000/pushFriend/${friendRequest.senderEmail}`,
                                       {
                                         displayName: friendRequest.senderName,
                                         email: friendRequest.senderEmail,
@@ -111,13 +112,14 @@ const FriendRequests = () => {
                                       if (res.status === 200) {
                                         axios
                                           .delete(
-                                            `https://connectzone.herokuapp.com/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
+                                            `http://localhost:5000/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
                                           )
                                           .then((res) => {
                                             if (res.status === 200) {
                                               toast.success(
                                                 "Friend Request Accepted"
                                               );
+                                              setAccepted(true);
                                             }
                                           });
                                       }
@@ -133,11 +135,12 @@ const FriendRequests = () => {
                           onClick={() => {
                             axios
                               .delete(
-                                `https://connectzone.herokuapp.com/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
+                                `http://localhost:5000/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
                               )
                               .then((res) => {
                                 if (res.status === 200) {
                                   toast.success("Friend Request Deleted");
+                                  setRejected(true);
                                 }
                               });
                           }}
