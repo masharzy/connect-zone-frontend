@@ -92,7 +92,9 @@ const GroupPost = ({ post }) => {
     if (alreadyLiked) {
       setLiking(true);
       await axios
-        .delete(`https://connectzone.herokuapp.com/group/${groupSlug}/post/${id}/deleteLike`)
+        .put(`https://connectzone.herokuapp.com/group/${groupSlug}/post/${id}/deleteLike`, {
+          email: user.email,
+        })
         .then((res) => {
           if (res.status === 200) {
             setLiking(false);
