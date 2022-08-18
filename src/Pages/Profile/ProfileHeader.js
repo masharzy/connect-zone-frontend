@@ -17,7 +17,7 @@ const ProfileHeader = () => {
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`http://localhost:5000/user/${email}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/user/${email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -36,11 +36,11 @@ const ProfileHeader = () => {
   const sendFriendRequest = async () => {
     if (user) {
       await axios
-        .get(`http://localhost:5000/user/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
         .then((res) => {
           if (res.status === 200) {
             axios
-              .post(`http://localhost:5000/friendRequest`, {
+              .post(`https://connectzone.herokuapp.com/friendRequest`, {
                 senderName: user.displayName,
                 senderImage: res.data.img,
                 senderEmail: user.email,
@@ -63,7 +63,7 @@ const ProfileHeader = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`http://localhost:5000/friendRequest/${user.email}/${email}`)
+        .get(`https://connectzone.herokuapp.com/friendRequest/${user.email}/${email}`)
         .then((res) => {
           if (res.status === 200) {
             if (res.data.senderName === user.displayName) {

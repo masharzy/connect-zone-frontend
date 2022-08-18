@@ -34,7 +34,7 @@ const GroupPost = ({ post }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/user/${
+        `https://connectzone.herokuapp.com/user/${
           user ? user.email : email
         }`
       )
@@ -43,13 +43,13 @@ const GroupPost = ({ post }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/group/${groupSlug}/post/${_id}`)
+      .get(`https://connectzone.herokuapp.com/group/${groupSlug}/post/${_id}`)
       .then((res) => setPostData(res.data));
   }, [_id, groupSlug, likeActive]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/group/${groupSlug}/post/${_id}/checkLike/${user?.email}`)
+      .get(`https://connectzone.herokuapp.com/group/${groupSlug}/post/${_id}/checkLike/${user?.email}`)
       .then((res) => {
         if (res.data === true) {
           setAlreadyLiked(true);
@@ -78,7 +78,7 @@ const GroupPost = ({ post }) => {
     };
     setCommenting(true);
     await axios
-      .post(`http://localhost:5000/comment`, comment)
+      .post(`https://connectzone.herokuapp.com/comment`, comment)
       .then((res) => {
         if (res.status === 200) {
           e.target.reset();
@@ -92,7 +92,7 @@ const GroupPost = ({ post }) => {
     if (alreadyLiked) {
       setLiking(true);
       await axios
-        .delete(`http://localhost:5000/group/${groupSlug}/post/${_id}/deleteLike`)
+        .delete(`https://connectzone.herokuapp.com/group/${groupSlug}/post/${id}/deleteLike`)
         .then((res) => {
           if (res.status === 200) {
             setLiking(false);
@@ -103,14 +103,8 @@ const GroupPost = ({ post }) => {
     } else {
       setLiking(true);
       await axios
-        .put(`http://localhost:5000/group/${groupSlug}/post/${_id}`, {
-          userName,
-          userImage,
-          userEmail,
-          postCaption,
-          postImages,
-          postLikes: [...likes, user.email],
-          time,
+        .put(`https://connectzone.herokuapp.com/group/${groupSlug}/post/${id}`, {
+          email: user.email
         })
         .then((res) => {
           if (res.status === 200) {

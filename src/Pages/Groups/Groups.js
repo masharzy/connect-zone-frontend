@@ -17,7 +17,7 @@ const Groups = () => {
     if (user) {
       setLoading(true);
       axios
-        .get(`http://localhost:5000/groups/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/groups/${user.email}`)
         .then((res) => {
           setGroups(res.data);
           setLoading(false);
@@ -29,7 +29,7 @@ const Groups = () => {
     if (user) {
       setLoading(true);
       axios
-        .get(`http://localhost:5000/groups`)
+        .get(`https://connectzone.herokuapp.com/groups`)
         .then((res) => {
           setOtherGroups(res.data);
           setLoading(false);

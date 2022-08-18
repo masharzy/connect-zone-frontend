@@ -11,7 +11,7 @@ const GroupPosts = ({isPosted}) => {
 
   useEffect(() => {
     setPostsLoading(true);
-    fetch(`http://localhost:5000/group/${groupSlug}/posts`)
+    fetch(`https://connectzone.herokuapp.com/group/${groupSlug}/posts`)
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);

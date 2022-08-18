@@ -20,7 +20,7 @@ const Navbar = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`http://localhost:5000/user/${user.email}`)
+        .get(`https://connectzone.herokuapp.com/user/${user.email}`)
         .then((res) => {
           setUserData(res.data);
         });

@@ -18,7 +18,7 @@ const FriendRequests = () => {
 
   useEffect(() => {
     setUserDataLoading(true);
-    axios.get(`http://localhost:5000/user/${email}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/user/${email}`).then((res) => {
       setUserData(res.data);
       setUserDataLoading(false);
     });
@@ -27,7 +27,7 @@ const FriendRequests = () => {
   useEffect(() => {
     if (user?.email === email) {
       axios
-        .get(`http://localhost:5000/friendRequests/${user?.email}`)
+        .get(`https://connectzone.herokuapp.com/friendRequests/${user?.email}`)
         .then((res) => {
           if (res.status === 200) {
             setFriendRequests(res.data);
@@ -78,7 +78,7 @@ const FriendRequests = () => {
                           onClick={async () => {
                             await axios
                               .put(
-                                `http://localhost:5000/pushFriend/${user?.email}`,
+                                `https://connectzone.herokuapp.com/pushFriend/${user?.email}`,
                                 {
                                   firstName: userData.firstName,
                                   lastName: userData.lastName,
@@ -97,7 +97,7 @@ const FriendRequests = () => {
                                 if (res.status === 200) {
                                   axios
                                     .put(
-                                      `http://localhost:5000/pushFriend/${friendRequest.senderEmail}`,
+                                      `https://connectzone.herokuapp.com/pushFriend/${friendRequest.senderEmail}`,
                                       {
                                         displayName: friendRequest.senderName,
                                         email: friendRequest.senderEmail,
@@ -112,7 +112,7 @@ const FriendRequests = () => {
                                       if (res.status === 200) {
                                         axios
                                           .delete(
-                                            `http://localhost:5000/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
+                                            `https://connectzone.herokuapp.com/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
                                           )
                                           .then((res) => {
                                             if (res.status === 200) {
@@ -135,7 +135,7 @@ const FriendRequests = () => {
                           onClick={() => {
                             axios
                               .delete(
-                                `http://localhost:5000/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
+                                `https://connectzone.herokuapp.com/acceptFriendRequest/${friendRequest.senderEmail}/${user?.email}`
                               )
                               .then((res) => {
                                 if (res.status === 200) {

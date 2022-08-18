@@ -55,7 +55,7 @@ const Group = () => {
   const onSubmit = async (data, e) => {
     setPosting(true);
     await axios
-      .post(`http://localhost:5000/group/${groupSlug}`, {
+      .post(`https://connectzone.herokuapp.com/group/${groupSlug}`, {
         _id: text,
         userName: user.displayName,
         userImage: userData.img,
@@ -77,7 +77,7 @@ const Group = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/groupBySlug/${groupSlug}`).then((res) => {
+    axios.get(`https://connectzone.herokuapp.com/groupBySlug/${groupSlug}`).then((res) => {
       setGroupInfo(res.data);
     });
   }, [groupSlug]);
@@ -95,7 +95,7 @@ const Group = () => {
   useEffect(() => {
     if (user) {
       setUserDataLoading(true);
-      axios.get(`http://localhost:5000/user/${user?.email}`).then((res) => {
+      axios.get(`https://connectzone.herokuapp.com/user/${user?.email}`).then((res) => {
         setUserData(res.data);
         setUserDataLoading(false);
       });
@@ -252,7 +252,7 @@ const Group = () => {
           {/* <Posts/> */}
           {/* <Posts
             isPosted={isPosted}
-            url={`http://localhost:5000/group/${groupSlug}/posts`}
+            url={`https://connectzone.herokuapp.com/group/${groupSlug}/posts`}
           /> */}
           <GroupPosts isPosted={isPosted}/>
         </div>
